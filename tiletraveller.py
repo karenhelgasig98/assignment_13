@@ -20,28 +20,42 @@ SOUTH = 's'
 EAST = 'e'
 WEST = 'w'
 
+def pull_lever(coins):
 
-def find_directions(col, row):
+    pull = input('Pull a lever (y/n): ').lower()
+    if pull == 'y':
+        coins += 1
+        print('You recieved 1 coin, your total is now {}.'.format(coins))
+        return coins
+    else:
+        return coins
+
+
+def find_directions(col, row, coins):
     ''' Returns valid directions as a string given the supplied location '''
     if col == 1 and row == 1:   # (1,1)
         valid_directions = NORTH
     elif col == 1 and row == 2:  # (1,2)
-        valid_directions = NORTH + SOUTH + EAST
+        valid_directions = NORTH + EAST + SOUTH
+        coins = pull_lever(coins)
     elif col == 1 and row == 3:  # (1,3)
-        valid_directions = SOUTH + EAST
+        valid_directions = EAST + SOUTH
     elif col == 2 and row == 1:  # (2,1)
         valid_directions == NORTH
     elif col == 2 and row == 2:  # (2,2)
         valid_directions = WEST + SOUTH
+        coins = pull_lever(coins)
     elif col == 2 and row == 3:  # (2,3)
-        valid_directions = WEST
+        valid_directions = EAST + WEST
+        coins = pull_lever(coins)
     elif col == 3 and row == 1:  # (3,1)
         valid_directions = NORTH
     elif col == 3 and row == 2:  # (3,2)
         valid_directions = NORTH + SOUTH
+        coins = pull_lever(coins)
     elif col == 3 and row == 3:  # (3,3)
-        valid_directions = WEST + SOUTH
-    return valid_directions
+        valid_directions = SOUTH + WEST
+    return valid_directions, coins
 
 
 def print_directions(directions_str):
@@ -63,6 +77,7 @@ def print_directions(directions_str):
             print("(W)est", end='')
         first = False
     print(".")
+
 
 
 def move(direction, col, row):
@@ -100,21 +115,20 @@ def play_one_move(col, row, valid_directions):
     return victory, col, row
 
 
+
 # main program starts here
 victory = False
 # start at tile (1,1)
 row = 1
 col = 1
+# begin with 0 coins
+coins = 0
 
 while victory == False:
-    valid_directions = find_directions(col, row)
+    valid_directions, coins = find_directions(col, row, coins)
     print_directions(valid_directions)
     victory, col, row = play_one_move(col, row, valid_directions)
 
-<<<<<<< HEAD
-print('VICTORY! Total coins:',coins)
-=======
-print('VICTORY!')
-print('sara')
-print('Siddy')
->>>>>>> efad90a9c1f3c465c9afec7e9f75355cc234c5d2
+
+print('VICTORY! Total coins',coins)
+
