@@ -121,20 +121,29 @@ def play_one_move(col, row, valid_directions, coins):
     return victory, col, row, coins
 
 
+def play():
+    # main program starts here
+    victory = False
+    # start at tile (1,1)
+    row = 1
+    col = 1
+    # begin with 0 coins
+    coins = 0
 
-# main program starts here
-victory = False
-# start at tile (1,1)
-row = 1
-col = 1
-# begin with 0 coins
-coins = 0
+    while victory == False:
+        valid_directions = find_directions(col, row)
+        print_directions(valid_directions)
+        victory, col, row, coins = play_one_move(col, row, valid_directions, coins)
 
-while victory == False:
-    valid_directions = find_directions(col, row)
-    print_directions(valid_directions)
-    victory, col, row, coins = play_one_move(col, row, valid_directions, coins)
+    print('Victory! Total coins {}.'.format(coins))
+
+play_again = True
+while play_again:
+    play()
+
+    play_again = input("Play again (y/n): ").lower()
+    if play_again != 'y':
+        play_again = False
 
 
-print('Victory! Total coins {}.'.format(coins))
 
