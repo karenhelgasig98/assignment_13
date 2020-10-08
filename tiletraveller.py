@@ -1,5 +1,6 @@
 # A computer game where a player is located in a certain tile in a grid
-# the player chooses directions and the program tells him/her if the direction is valid or not
+# the player chooses directions and the program tells him/her if the direction
+# is valid or not
 # the goal is to reach the victory location [3,1].
 
 # define the beginning tile [1,1]
@@ -8,9 +9,10 @@
 # go to the function for the direction chosen
 # the functions check the tile where the player is located
 # and returns the new location
-# if the direction chosen is a closed wall the function prints out 'invalid direction'
+# if the direction chosen is a closed wall the function prints 
+# out 'invalid direction'
 # repeated until the player reaches the victory tile [3,3]
-# game ends when player reaches victory tile 
+# game ends when player reaches victory tile
 
 # constants
 NORTH = 'n'
@@ -19,25 +21,25 @@ EAST = 'e'
 WEST = 'w'
 
 
-def find_directions(col,row):
+def find_directions(col, row):
     ''' Returns valid directions as a string given the supplied location '''
     if col == 1 and row == 1:   # (1,1)
         valid_directions = NORTH
-    elif col == 1 and row == 2: # (1,2)
+    elif col == 1 and row == 2:  # (1,2)
         valid_directions = NORTH + SOUTH + EAST
-    elif col == 1 and row == 3: # (1,3)
+    elif col == 1 and row == 3:  # (1,3)
         valid_directions = SOUTH + EAST
-    elif col == 2 and row == 1: # (2,1)
+    elif col == 2 and row == 1:  # (2,1)
         valid_directions == NORTH
-    elif col == 2 and row == 2: # (2,2)
+    elif col == 2 and row == 2:  # (2,2)
         valid_directions = WEST + SOUTH
-    elif col == 2 and row == 3: # (2,3)
+    elif col == 2 and row == 3:  # (2,3)
         valid_directions = WEST
-    elif col == 3 and row == 1: # (3,1)
+    elif col == 3 and row == 1:  # (3,1)
         valid_directions = NORTH
-    elif col == 3 and row == 2: # (3,2)
+    elif col == 3 and row == 2:  # (3,2)
         valid_directions = NORTH + SOUTH
-    elif col == 3 and row == 3: # (3,3)
+    elif col == 3 and row == 3:  # (3,3)
         valid_directions = WEST + SOUTH
     return valid_directions
 
@@ -45,8 +47,9 @@ def find_directions(col,row):
 def print_directions(directions_str):
 
     print("You can travel: ", end='')
-    # if we only have to run once through there is only one direction otherwise we print 'or'
-    first = True 
+    # if we only have to run once through there is
+    # only one direction otherwise we print 'or'
+    first = True
     for ch in directions_str:
         if not first:
             print(" or ", end='')
@@ -60,7 +63,7 @@ def print_directions(directions_str):
             print("(W)est", end='')
         first = False
     print(".")
-        
+
 
 def move(direction, col, row):
     ''' Returns updated col, row given the direction '''
@@ -75,9 +78,11 @@ def move(direction, col, row):
 
     return col, row
 
-def is_victory(col,row):
+
+def is_victory(col, row):
     '''returns True if victory otherwise False'''
-    return col == 3 and row == 1 # (3,1)
+    return col == 3 and row == 1  # (3,1)
+
 
 def play_one_move(col, row, valid_directions):
     ''' Plays one move of the game
@@ -88,12 +93,11 @@ def play_one_move(col, row, valid_directions):
 
     if direction in valid_directions:
         col, row = move(direction, col, row)
-        victory = is_victory(col,row)
+        victory = is_victory(col, row)
     else:
         print('Not a valid direction.')
 
     return victory, col, row
-
 
 
 # main program starts here
@@ -103,10 +107,10 @@ row = 1
 col = 1
 
 while victory == False:
-    valid_directions = find_directions(col,row)
+    valid_directions = find_directions(col, row)
     print_directions(valid_directions)
     victory, col, row = play_one_move(col, row, valid_directions)
 
 print('VICTORY!')
 
-
+print('hello')
