@@ -112,6 +112,4 @@ while victory == False:
     victory, col, row = play_one_move(col, row, valid_directions)
 
 print('VICTORY!')
-
-print('hello')
 print('sara')
