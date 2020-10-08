@@ -31,44 +31,28 @@ def pull_lever(coins):
         return coins
 
 
-def find_directions(col, row, coins):
+def find_directions(col, row):
     ''' Returns valid directions as a string given the supplied location '''
-    first = False
+
     if col == 1 and row == 1:   # (1,1)
         valid_directions = NORTH
     elif col == 1 and row == 2:  # (1,2)
         valid_directions = NORTH + EAST + SOUTH
-        coins = pull_lever(coins)
     elif col == 1 and row == 3:  # (1,3)
         valid_directions = EAST + SOUTH
     elif col == 2 and row == 1:  # (2,1)
         valid_directions == NORTH
     elif col == 2 and row == 2:  # (2,2)
         valid_directions = SOUTH + WEST
-
-        if not first:
-            coins = pull_lever(coins)
-            first = True
-
     elif col == 2 and row == 3:  # (2,3)
         valid_directions = EAST + WEST
-
-        if not first:
-            coins = pull_lever(coins)
-            first = True
-
     elif col == 3 and row == 1:  # (3,1)
         valid_directions = NORTH
     elif col == 3 and row == 2:  # (3,2)
         valid_directions = NORTH + SOUTH
-        
-        if not first:
-            coins = pull_lever(coins)
-            first = True
-
     elif col == 3 and row == 3:  # (3,3)
         valid_directions = SOUTH + WEST
-    return valid_directions, coins
+    return valid_directions
 
 
 def print_directions(directions_str):
@@ -112,7 +96,7 @@ def is_victory(col, row):
     return col == 3 and row == 1  # (3,1)
 
 
-def play_one_move(col, row, valid_directions):
+def play_one_move(col, row, valid_directions, coins):
     ''' Plays one move of the game
         Return if victory has been obtained and updated col,row '''
 
@@ -121,11 +105,20 @@ def play_one_move(col, row, valid_directions):
 
     if direction in valid_directions:
         col, row = move(direction, col, row)
+        if col == 1 and row == 2:# (1,2)
+            coins = pull_lever(coins)
+        elif col == 2 and row == 2: # (2,2)
+            coins = pull_lever(coins)
+        elif col == 2 and row == 3:
+            coins = pull_lever(coins) # (2,3)
+        elif col == 3 and row == 2:
+            coins = pull_lever(coins) # (3,2)
+
         victory = is_victory(col, row)
     else:
         print('Not a valid direction!')
 
-    return victory, col, row
+    return victory, col, row, coins
 
 
 
@@ -138,10 +131,10 @@ col = 1
 coins = 0
 
 while victory == False:
-    valid_directions, coins = find_directions(col, row, coins)
+    valid_directions = find_directions(col, row)
     print_directions(valid_directions)
-    victory, col, row = play_one_move(col, row, valid_directions)
+    victory, col, row, coins = play_one_move(col, row, valid_directions, coins)
 
 
-print('Victory! Total coins',coins)
+print('Victory! Total coins {}.'.format(coins))
 
