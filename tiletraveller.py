@@ -111,4 +111,10 @@ while victory == False:
     print_directions(valid_directions)
     victory, col, row = play_one_move(col, row, valid_directions)
 
+<<<<<<< HEAD
 print('VICTORY! Total coins:',coins)
+=======
+print('VICTORY!')
+print('sara')
+print('Siddy')
+>>>>>>> efad90a9c1f3c465c9afec7e9f75355cc234c5d2
