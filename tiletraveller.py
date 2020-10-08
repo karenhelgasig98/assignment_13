@@ -25,7 +25,7 @@ def pull_lever(coins):
     pull = input('Pull a lever (y/n): ').lower()
     if pull == 'y':
         coins += 1
-        print('You recieved 1 coin, your total is now {}.'.format(coins))
+        print('You received 1 coin, your total is now {}.'.format(coins))
         return coins
     else:
         return coins
@@ -33,6 +33,7 @@ def pull_lever(coins):
 
 def find_directions(col, row, coins):
     ''' Returns valid directions as a string given the supplied location '''
+    first = False
     if col == 1 and row == 1:   # (1,1)
         valid_directions = NORTH
     elif col == 1 and row == 2:  # (1,2)
@@ -43,16 +44,28 @@ def find_directions(col, row, coins):
     elif col == 2 and row == 1:  # (2,1)
         valid_directions == NORTH
     elif col == 2 and row == 2:  # (2,2)
-        valid_directions = WEST + SOUTH
-        coins = pull_lever(coins)
+        valid_directions = SOUTH + WEST
+
+        if not first:
+            coins = pull_lever(coins)
+            first = True
+
     elif col == 2 and row == 3:  # (2,3)
         valid_directions = EAST + WEST
-        coins = pull_lever(coins)
+
+        if not first:
+            coins = pull_lever(coins)
+            first = True
+
     elif col == 3 and row == 1:  # (3,1)
         valid_directions = NORTH
     elif col == 3 and row == 2:  # (3,2)
         valid_directions = NORTH + SOUTH
-        coins = pull_lever(coins)
+        
+        if not first:
+            coins = pull_lever(coins)
+            first = True
+
     elif col == 3 and row == 3:  # (3,3)
         valid_directions = SOUTH + WEST
     return valid_directions, coins
@@ -110,7 +123,7 @@ def play_one_move(col, row, valid_directions):
         col, row = move(direction, col, row)
         victory = is_victory(col, row)
     else:
-        print('Not a valid direction.')
+        print('Not a valid direction!')
 
     return victory, col, row
 
@@ -130,5 +143,5 @@ while victory == False:
     victory, col, row = play_one_move(col, row, valid_directions)
 
 
-print('VICTORY! Total coins',coins)
+print('Victory! Total coins',coins)
 
